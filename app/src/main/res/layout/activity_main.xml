@@ -59,6 +59,15 @@
             android:textColor="#F9FBE7" />
 
         <Button
+            android:id="@+id/button_znak"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClickZnak"
+            android:text="@string/znak" />
+
+        <Button
             android:id="@+id/button_delenie"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"

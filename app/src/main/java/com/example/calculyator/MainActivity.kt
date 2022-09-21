@@ -32,7 +32,17 @@ class MainActivity : AppCompatActivity() {
     }
     fun onClickDot(view: View){
         val threeOutputNumber: TextView = findViewById(R.id.threeOutputNumber)
+        if(!threeOutputNumber.text.toString().contains('.'))
         threeOutputNumber.text=threeOutputNumber.text.toString()+"."
+    }
+    fun onClickZnak(view: View){
+        val threeOutputNumber: TextView = findViewById(R.id.threeOutputNumber)
+        if(threeOutputNumber.text.toString().startsWith('-')){
+            threeOutputNumber.text = threeOutputNumber.text.toString().drop(1)
+        }
+        else{
+            threeOutputNumber.text = "-"+threeOutputNumber.text.toString()
+        }
     }
     fun onClickOperation(view: View){
         val button : Button = findViewById(view.id)

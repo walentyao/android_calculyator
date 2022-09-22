@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
-    var number : Double = 0.0
     var operation = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,8 +87,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             twoOutputNumber.text = ""
-            threeOutputNumber.text = ""
-            oneOutputNumber.text = num.toString()
+            oneOutputNumber.text = ""
+            threeOutputNumber.text = num.toString().replace(".0","")
         }else{
             twoOutputNumber.text = button.text.toString()
                 operation = view.id

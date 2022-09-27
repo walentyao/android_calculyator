@@ -20,7 +20,14 @@ class MainActivity : AppCompatActivity() {
         val text = inputNumber.text.toString() + button.text.toString()
         inputNumber.text = text
     }
-
+    fun onClickTextView(view: View){
+        val oneOutputNumber: TextView = findViewById(R.id.oneOutputNumber)
+        val twoOutputNumber: TextView = findViewById(R.id.twoOutputNumber)
+        val threeOutputNumber: TextView = findViewById(R.id.threeOutputNumber)
+        threeOutputNumber.text= oneOutputNumber.text.toString()
+        oneOutputNumber.text=""
+        twoOutputNumber.text=""
+    }
     fun onClear(view: View) {
         val oneOutputNumber: TextView = findViewById(R.id.oneOutputNumber)
         val twoOutputNumber: TextView = findViewById(R.id.twoOutputNumber)

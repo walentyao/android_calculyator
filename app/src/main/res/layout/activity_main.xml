@@ -22,18 +22,30 @@
             android:id="@+id/oneOutputNumber"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:textSize="48sp" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:contextClickable="true"
+            android:gravity="end"
+            android:onClick="onClickTextView"
+            android:textSize="48sp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/twoOutputNumber"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="end"
             android:textSize="48sp" />
 
         <TextView
             android:id="@+id/threeOutputNumber"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="end"
             android:textSize="48sp" />
 
     </LinearLayout>

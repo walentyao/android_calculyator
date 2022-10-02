@@ -1,11 +1,9 @@
 package com.example.calculyator
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
@@ -16,14 +14,20 @@ class MainActivity : AppCompatActivity() {
     }
     fun onClickNumber(view: View) {
         val button: Button = findViewById(view.id)
-        val inputNumber: TextView = findViewById(R.id.threeOutputNumber)
+        val inputNumber: TextView = findViewById(R.id.threeOutPutNumber)
         val text = inputNumber.text.toString() + button.text.toString()
         inputNumber.text = text
+    }
+    fun onClickDelete(view: View){
+        val threeOutPutNumber : TextView = findViewById(R.id.threeOutPutNumber)
+        var number = threeOutPutNumber.text.toString().length
+        if (number > 0)
+        threeOutPutNumber.text = threeOutPutNumber.text.toString().substring(0, number - 1)
     }
     fun onClickTextView(view: View){
         val oneOutputNumber: TextView = findViewById(R.id.oneOutputNumber)
         val twoOutputNumber: TextView = findViewById(R.id.twoOutputNumber)
-        val threeOutputNumber: TextView = findViewById(R.id.threeOutputNumber)
+        val threeOutputNumber: TextView = findViewById(R.id.threeOutPutNumber)
         threeOutputNumber.text= oneOutputNumber.text.toString()
         oneOutputNumber.text=""
         twoOutputNumber.text=""
@@ -31,18 +35,18 @@ class MainActivity : AppCompatActivity() {
     fun onClear(view: View) {
         val oneOutputNumber: TextView = findViewById(R.id.oneOutputNumber)
         val twoOutputNumber: TextView = findViewById(R.id.twoOutputNumber)
-        val threeOutputNumber: TextView = findViewById(R.id.threeOutputNumber)
+        val threeOutputNumber: TextView = findViewById(R.id.threeOutPutNumber)
         oneOutputNumber.text=""
         twoOutputNumber.text=""
         threeOutputNumber.text=""
     }
     fun onClickDot(view: View){
-        val threeOutputNumber: TextView = findViewById(R.id.threeOutputNumber)
+        val threeOutputNumber: TextView = findViewById(R.id.threeOutPutNumber)
         if(!threeOutputNumber.text.toString().contains('.'))
         threeOutputNumber.text=threeOutputNumber.text.toString()+"."
     }
     fun onClickZnak(view: View){
-        val threeOutputNumber: TextView = findViewById(R.id.threeOutputNumber)
+        val threeOutputNumber: TextView = findViewById(R.id.threeOutPutNumber)
         if(threeOutputNumber.text.toString().startsWith('-')){
             threeOutputNumber.text = threeOutputNumber.text.toString().drop(1)
         }
@@ -52,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun onClickOperation(view: View){
         val button : Button = findViewById(view.id)
-        val threeOutputNumber : TextView = findViewById(R.id.threeOutputNumber)
+        val threeOutputNumber : TextView = findViewById(R.id.threeOutPutNumber)
         val twoOutputNumber : TextView = findViewById(R.id.twoOutputNumber)
         val oneOutputNumber : TextView = findViewById(R.id.oneOutputNumber)
         if (view.id != R.id.button_ravno && !threeOutputNumber.text.equals("")) {

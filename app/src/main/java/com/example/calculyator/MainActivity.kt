@@ -2,106 +2,121 @@ package com.example.calculyator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
     var operation = 0
+    private lateinit var oneOutPutNumber : TextView
+    private lateinit var twoOutPutNumber : TextView
+    private lateinit var threeOutPutNumber : EditText
+    private lateinit var button : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        oneOutPutNumber = findViewById(R.id.oneOutputNumber)
+        twoOutPutNumber = findViewById(R.id.twoOutputNumber)
+        threeOutPutNumber = findViewById(R.id.threeOutPutNumber)
+        threeOutPutNumber.showSoftInputOnFocus = false
     }
     fun onClickNumber(view: View) {
-        val button: Button = findViewById(view.id)
-        val inputNumber: TextView = findViewById(R.id.threeOutPutNumber)
-        val text = inputNumber.text.toString() + button.text.toString()
-        inputNumber.text = text
+        button = findViewById(view.id)
+        val position = threeOutPutNumber.selectionStart
+        var text = threeOutPutNumber.text.toString()
+        text = StringBuilder(text).insert(position, button.text.toString()).toString()
+        threeOutPutNumber.setText(text)
+        threeOutPutNumber.setSelection(position + 1)
     }
     fun onClickDelete(view: View){
-        val threeOutPutNumber : TextView = findViewById(R.id.threeOutPutNumber)
-        var number = threeOutPutNumber.text.toString().length
-        if (number > 0)
-        threeOutPutNumber.text = threeOutPutNumber.text.toString().substring(0, number - 1)
+        val position = threeOutPutNumber.selectionStart
+        val text1 = threeOutPutNumber.text.toString().substring(0, position - 1)
+        val  text2 = threeOutPutNumber.text.toString().substring(position, threeOutPutNumber.text.toString().length)
+        val text = text1.plus(text2)
+        if (position > 0)
+        {threeOutPutNumber.setText(text)
+            threeOutPutNumber.setSelection(position - 1)}
     }
     fun onClickTextView(view: View){
-        val oneOutputNumber: TextView = findViewById(R.id.oneOutputNumber)
-        val twoOutputNumber: TextView = findViewById(R.id.twoOutputNumber)
-        val threeOutputNumber: TextView = findViewById(R.id.threeOutPutNumber)
-        threeOutputNumber.text= oneOutputNumber.text.toString()
-        oneOutputNumber.text=""
-        twoOutputNumber.text=""
+        threeOutPutNumber.setText(oneOutPutNumber.text.toString())
+        threeOutPutNumber.setSelection(threeOutPutNumber.text.toString().length)
+        oneOutPutNumber.text=""
+        twoOutPutNumber.text=""
     }
     fun onClear(view: View) {
-        val oneOutputNumber: TextView = findViewById(R.id.oneOutputNumber)
-        val twoOutputNumber: TextView = findViewById(R.id.twoOutputNumber)
-        val threeOutputNumber: TextView = findViewById(R.id.threeOutPutNumber)
-        oneOutputNumber.text=""
-        twoOutputNumber.text=""
-        threeOutputNumber.text=""
+        oneOutPutNumber.text=""
+        twoOutPutNumber.text=""
+        threeOutPutNumber.setText("")
     }
     fun onClickDot(view: View){
-        val threeOutputNumber: TextView = findViewById(R.id.threeOutPutNumber)
-        if(!threeOutputNumber.text.toString().contains('.'))
-        threeOutputNumber.text=threeOutputNumber.text.toString()+"."
+        button = findViewById(view.id)
+        val position = threeOutPutNumber.selectionStart
+        var text = threeOutPutNumber.text.toString()
+        text = StringBuilder(text).insert(position, button.text.toString()).toString()
+
+        if(!threeOutPutNumber.text.toString().contains('.'))
+        {threeOutPutNumber.setText(text)
+            threeOutPutNumber.setSelection(position + 1)}
     }
     fun onClickZnak(view: View){
-        val threeOutputNumber: TextView = findViewById(R.id.threeOutPutNumber)
-        if(threeOutputNumber.text.toString().startsWith('-')){
-            threeOutputNumber.text = threeOutputNumber.text.toString().drop(1)
+        val text : String
+        if(threeOutPutNumber.text.toString().startsWith('-')){
+            text = threeOutPutNumber.text.toString().drop(1)
+            threeOutPutNumber.setText(text)
         }
         else{
-            threeOutputNumber.text = "-"+threeOutputNumber.text.toString()
+            text = "-"+threeOutPutNumber.text.toString()
+            threeOutPutNumber.setText(text)
         }
     }
     fun onClickOperation(view: View){
-        val button : Button = findViewById(view.id)
-        val threeOutputNumber : TextView = findViewById(R.id.threeOutPutNumber)
-        val twoOutputNumber : TextView = findViewById(R.id.twoOutputNumber)
-        val oneOutputNumber : TextView = findViewById(R.id.oneOutputNumber)
-        if (view.id != R.id.button_ravno && !threeOutputNumber.text.equals("")) {
-            if(!oneOutputNumber.text.equals("")){
+        button = findViewById(view.id)
+        if (view.id != R.id.button_ravno && !threeOutPutNumber.text.equals("")) {
+            if(!oneOutPutNumber.text.equals("")){
                 when(operation){
-                    R.id.button_plus -> {oneOutputNumber.text = (oneOutputNumber.text.toString().toDouble()+threeOutputNumber.text.toString().toDouble()).toString() }
-                    R.id.button_minus -> {oneOutputNumber.text = (oneOutputNumber.text.toString().toDouble()-threeOutputNumber.text.toString().toDouble()).toString()}
-                    R.id.button_umn -> {oneOutputNumber.text = (oneOutputNumber.text.toString().toDouble()*threeOutputNumber.text.toString().toDouble()).toString()}
-                    R.id.button_delenie -> {oneOutputNumber.text = (oneOutputNumber.text.toString().toDouble()/threeOutputNumber.text.toString().toDouble()).toString()}
+                    R.id.button_plus -> {oneOutPutNumber.text = (oneOutPutNumber.text.toString().toDouble()+threeOutPutNumber.text.toString().toDouble()).toString() }
+                    R.id.button_minus -> {oneOutPutNumber.text = (oneOutPutNumber.text.toString().toDouble()-threeOutPutNumber.text.toString().toDouble()).toString()}
+                    R.id.button_umn -> {oneOutPutNumber.text = (oneOutPutNumber.text.toString().toDouble()*threeOutPutNumber.text.toString().toDouble()).toString()}
+                    R.id.button_delenie -> {oneOutPutNumber.text = (oneOutPutNumber.text.toString().toDouble()/threeOutPutNumber.text.toString().toDouble()).toString()}
 
                 }
-                twoOutputNumber.text = button.text.toString()
-                threeOutputNumber.text = ""
+                twoOutPutNumber.text = button.text.toString()
+                threeOutPutNumber.setText("")
             }else{
-                twoOutputNumber.text = button.text.toString()
-                oneOutputNumber.text = threeOutputNumber.text.toString()
-                threeOutputNumber.text = ""
+                twoOutPutNumber.text = button.text.toString()
+                oneOutPutNumber.text = threeOutPutNumber.text.toString()
+                threeOutPutNumber.setText("")
             }
             operation = view.id
         } else {
-            if(!threeOutputNumber.text.equals("")){
+            if(!threeOutPutNumber.text.equals("")){
             var num = 0.0
             when (operation) {
                 R.id.button_plus -> {
-                    num = oneOutputNumber.text.toString().toDouble() +
-                            threeOutputNumber.text.toString().toDouble()
+                    num = oneOutPutNumber.text.toString().toDouble() +
+                            threeOutPutNumber.text.toString().toDouble()
                 }
                 R.id.button_delenie -> {
-                    num = oneOutputNumber.text.toString().toDouble() /
-                            threeOutputNumber.text.toString().toDouble()
+                    num = oneOutPutNumber.text.toString().toDouble() /
+                            threeOutPutNumber.text.toString().toDouble()
                 }
                 R.id.button_umn -> {
-                    num = oneOutputNumber.text.toString().toDouble() *
-                            threeOutputNumber.text.toString().toDouble()
+                    num = oneOutPutNumber.text.toString().toDouble() *
+                            threeOutPutNumber.text.toString().toDouble()
                 }
                 R.id.button_minus -> {
-                    num = oneOutputNumber.text.toString().toDouble() -
-                            threeOutputNumber.text.toString().toDouble()
+                    num = oneOutPutNumber.text.toString().toDouble() -
+                            threeOutPutNumber.text.toString().toDouble()
                 }
             }
-            twoOutputNumber.text = ""
-            oneOutputNumber.text = ""
-            threeOutputNumber.text = num.toString().replace(".0","")
+            twoOutPutNumber.text = ""
+            oneOutPutNumber.text = ""
+            threeOutPutNumber.setText(num.toString().replace(".0",""))
+                threeOutPutNumber.setSelection(threeOutPutNumber.text.toString().length)
         }else{
-            twoOutputNumber.text = button.text.toString()
+            twoOutPutNumber.text = button.text.toString()
                 operation = view.id
             }
         }
